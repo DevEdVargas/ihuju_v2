@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPersonaEmpty}" rendered="#{personaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{personaController.items.rowCount > 0}">
+                    <h:outputText value="#{personaController.pagination.pageFirstItem + 1}..#{personaController.pagination.pageLastItem + 1}/#{personaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{personaController.previous}" value="#{bundle.Previous} #{personaController.pagination.pageSize}" rendered="#{personaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{personaController.next}" value="#{bundle.Next} #{personaController.pagination.pageSize}" rendered="#{personaController.pagination.hasNextPage}"/>&nbsp;
+
+                    <p:dataTable id="tblpersona" value="#{personaController.items}" var="item"  style="border:solid 1px"
+
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500"
+                                 rowStyleClass="#{item.fkTipoidentifi.codigo eq'CC' ? 'cc' : null}">
+
+                        <f:facet name="{Exporters}">
+                            <div style="float: bottom; padding-top: 5px;">
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xls.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tblpersona"
+                                                    pageOnly="true" fileName="persona" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tblpersona"
+                                                    pageOnly="true" fileName="persona"  preProcessor="#{personaController.preProcessPDF}" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="tblpersona"
+                                                    pageOnly="true" fileName="persona" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xml.png" width="24"/>
+                                    <p:dataExporter type="xml" target="tblpersona"
+                                                    pageOnly="true" fileName="persona" />
+                                </h:commandLink>	
+
+                            </div>
+                        </f:facet>
+
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_identificacion}"
+                            sortBy="#{item.identificacion}"
+                            filterBy="#{item.identificacion}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_nombre}"
+                            sortBy="#{item.nombre}"
+                            filterBy="#{item.nombre}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_apellido}"
+                            sortBy="#{item.apellido}"
+                            filterBy="#{item.apellido}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.apellido}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_fechanacimiento}"
+                            sortBy="#{item.fechanacimiento}"
+                            filterBy="#{item.fechanacimiento}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fechanacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_email}"
+                            sortBy="#{item.email}"
+                            filterBy="#{item.email}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_fkEstadocivil}"
+                            sortBy="#{item.fkEstadocivil}"
+                            filterBy="#{item.fkEstadocivil}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkEstadocivil}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_fkGenero}"
+                            sortBy="#{item.fkGenero.descripcion}"
+                            filterBy="#{item.fkGenero.descripcion}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkGenero.descripcion}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_fkMunicipio}"
+                            sortBy="#{item.fkMunicipio.nombre}"
+                            filterBy="#{item.fkMunicipio.nombre}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkMunicipio.nombre}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListPersonaTitle_fkTipoidentifi}"
+                            sortBy="#{item.fkTipoidentifi.descripcion}"
+                            filterBy="#{item.fkTipoidentifi.descripcion}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkTipoidentifi.descripcion}"/>
+                        </p:column>
+                        
+                        <p:column exportable="false">
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{personaController.prepareView}" value="#{bundle.ListPersonaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{personaController.prepareEdit}" value="#{bundle.ListPersonaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{personaController.destroy}" value="#{bundle.ListPersonaDestroyLink}"/>
+                        </p:column>                
+                    </p:dataTable>
+                    <h3>Exportar</h3>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xls.png" />
+                        <p:dataExporter type="xls" target="tblpersona"
+                                        fileName="persona"/>
+                    </h:commandLink>
+                    <h:commandLink>
+                        <p:graphicImage name="/assets/pdf.png" />
+                        <p:dataExporter type="pdf" target="tblpersona"
+                                        fileName="persona" preProcessor="#{personaController.preProcessPDF}" />
+                    </h:commandLink>	
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/csv.png" />
+                        <p:dataExporter type="csv" target="tblpersona"
+                                        fileName="persona"/>
+                    </h:commandLink>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xml.png" />
+                        <p:dataExporter type="xml" target="tblpersona"
+                                        fileName="persona"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{personaController.prepareCreate}" value="#{bundle.ListPersonaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPersonaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

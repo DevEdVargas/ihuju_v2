@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateArtistaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            
+            <h:form>
+                <h:panelGrid columns="2">
+                                       
+                    <p:outputLabel value="#{bundle.CreateArtistaLabel_apodo}" for="apodo" />
+                    <p:inputText id="apodo" value="#{registroArtistaController.currentArtista.apodo}" title="#{bundle.CreateArtistaTitle_apodo}" required="true" requiredMessage="#{bundle.CreateArtistaRequiredMessage_apodo}"/>
+                    <p:outputLabel value="#{bundle.CreateArtistaLabel_generomusical}" for="generomusical" />
+                    <p:inputText id="generomusical" value="#{registroArtistaController.seletedArtista.generomusical}" title="#{bundle.CreateArtistaTitle_generomusical}" required="true" requiredMessage="#{bundle.CreateArtistaRequiredMessage_generomusical}"/>
+                    <p:outputLabel value="#{bundle.CreateArtistaLabel_experiencia}" for="experiencia" />
+                    <p:inputText id="experiencia" value="#{registroArtistaController.seletedArtista.experiencia}" title="#{bundle.CreateArtistaTitle_experiencia}" required="true" requiredMessage="#{bundle.CreateArtistaRequiredMessage_experiencia}"/>
+                    <p:outputLabel value="#{bundle.CreateArtistaLabel_fkTipartis}" for="fkTipartis" />
+                    <p:selectOneMenu id="fkTipartis" value="#{registroArtistaController.seletedArtista.fkTipartis}" title="#{bundle.CreateArtistaTitle_fkTipartis}" >
+                        <f:selectItems value="#{tipoartistaController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+  
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{registroArtistaController.create()}" value="#{bundle.CreateArtistaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{artistaController.prepareList}" value="#{bundle.CreateArtistaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateArtistaIndexLink}"/>
+            </h:form>
+
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

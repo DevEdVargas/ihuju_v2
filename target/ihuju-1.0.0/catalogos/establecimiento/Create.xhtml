@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEstablecimientoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="3">
+                    
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_direccion}" for="direccion" />
+                    <h:inputText id="direccion" value="#{establecimientoController.selected.direccion}" title="#{bundle.CreateEstablecimientoTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_direccion}"/>
+                      <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{establecimientoController.selected.nombre}" title="#{bundle.CreateEstablecimientoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_nombre}"/>
+                      <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_nit}" for="nit" />
+                    <h:inputText id="nit" value="#{establecimientoController.selected.nit}" title="#{bundle.CreateEstablecimientoTitle_nit}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_nit}"/>
+                      <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_capacidad}" for="capacidad" />
+                    <h:inputText id="capacidad" value="#{establecimientoController.selected.capacidad}" title="#{bundle.CreateEstablecimientoTitle_capacidad}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_capacidad}"/>
+                      <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_precio}" for="precio" />
+                    <h:inputText id="precio" value="#{establecimientoController.selected.precio}" title="#{bundle.CreateEstablecimientoTitle_precio}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_precio}"/>
+                      <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_fkDuenio}" for="fkDuenio" />
+                    <p:selectOneMenu id="fkDuenio" value="#{establecimientoController.selected.fkDuenio}" title="#{bundle.CreateEstablecimientoTitle_fkDuenio}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_fkDuenio}">
+                          
+                        <f:selectItems value="#{duenioController.itemsAvailableSelectOne}"/>
+                        
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_fkMunicilugar}" for="fkMunicilugar" />
+                    <p:selectOneMenu id="fkMunicilugar" value="#{establecimientoController.selected.fkMunicilugar.pkMunicipio}" title="#{bundle.CreateEstablecimientoTitle_fkMunicilugar}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_fkMunicilugar}">
+                        <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{establecimientoController.create}" value="#{bundle.CreateEstablecimientoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{establecimientoController.prepareList}" value="#{bundle.CreateEstablecimientoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEstablecimientoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

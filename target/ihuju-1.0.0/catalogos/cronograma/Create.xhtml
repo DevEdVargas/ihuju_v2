@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCronogramaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="3">
+                    
+                   
+                    
+                    
+                    
+                    <p:outputLabel 
+                        value="#{bundle.CreateCronogramaLabel_hora}"
+                        for="hora" />
+                    
+                    <p:calendar id="hora"
+                                value="#{cronogramaController.selected.hora}" 
+                                locale="es" navigator ="true" pattern="dd/MM/yyyy"
+                                />
+                   
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    <p:outputLabel value="#{bundle.CreateCronogramaLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{cronogramaController.selected.descripcion}" title="#{bundle.CreateCronogramaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCronogramaRequiredMessage_descripcion}"/>
+               <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{cronogramaController.create}" value="#{bundle.CreateCronogramaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{cronogramaController.prepareList}" value="#{bundle.CreateCronogramaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCronogramaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

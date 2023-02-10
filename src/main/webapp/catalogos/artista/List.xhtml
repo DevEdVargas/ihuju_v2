@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListArtistaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListArtistaEmpty}" rendered="#{artistaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{artistaController.items.rowCount > 0}">
+                    <h:outputText value="#{artistaController.pagination.pageFirstItem + 1}..#{artistaController.pagination.pageLastItem + 1}/#{artistaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{artistaController.previous}" value="#{bundle.Previous} #{artistaController.pagination.pageSize}" rendered="#{artistaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{artistaController.next}" value="#{bundle.Next} #{artistaController.pagination.pageSize}" rendered="#{artistaController.pagination.hasNextPage}"/>&nbsp;
+
+                    <p:dataTable id="tblartista" value="#{artistaController.items}" var="item" style="border:solid 1px"
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500">
+                        <f:facet name="{Exporters}">
+                            <div style="float: bottom; padding-top: 5px;">
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xls.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tblartista"
+                                                    pageOnly="true" fileName="artista" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tblartista"
+                                                    pageOnly="true" fileName="artista"  preProcessor="#{artistaController.preProcessPDF}" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="tblartista"
+                                                    pageOnly="true" fileName="artista" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xml.png" width="24"/>
+                                    <p:dataExporter type="xml" target="tblartista"
+                                                    pageOnly="true" fileName="artista" />
+                                </h:commandLink>	
+
+                            </div>
+                        </f:facet>
+
+                        <p:column
+                            headerText="#{bundle.ListArtistaTitle_apodo}"
+                            sortBy="#{item.apodo}"
+                            filterBy="#{item.apodo}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.apodo}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListArtistaTitle_generomusical}"
+                            sortBy="#{item.generomusical}"
+                            filterBy="#{item.generomusical}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.generomusical}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListArtistaTitle_experiencia}"
+                            sortBy="#{item.experiencia}"
+                            filterBy="#{item.experiencia}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.experiencia}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListArtistaTitle_fkTipartis}"
+                            sortBy="#{item.fkTipartis.nombre}"
+                            filterBy="#{item.fkTipartis.nombre}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkTipartis.nombre}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListArtistaTitle_fkUsuario}"
+                            sortBy="#{item.fkUsuario.nombreusuario}"
+                            filterBy="#{item.fkUsuario.nombreusuario}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkUsuario.nombreusuario}"/>
+                        </p:column>
+
+                        <p:column exportable="false">
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{artistaController.prepareView}" value="#{bundle.ListArtistaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{artistaController.prepareEdit}" value="#{bundle.ListArtistaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{artistaController.destroy}" value="#{bundle.ListArtistaDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h3>Exportar</h3>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xls.png" />
+                        <p:dataExporter type="xls" target="tblartista"
+                                        fileName="artista"/>
+                    </h:commandLink>
+                    <h:commandLink>
+                        <p:graphicImage name="/assets/pdf.png" />
+                        <p:dataExporter type="pdf" target="tblartista"
+                                        fileName="artista" preProcessor="#{artistaController.preProcessPDF}" />
+                    </h:commandLink>	
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/csv.png" />
+                        <p:dataExporter type="csv" target="tblartista"
+                                        fileName="artista"/>
+                    </h:commandLink>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xml.png" />
+                        <p:dataExporter type="xml" target="tblartista"
+                                        fileName="artista"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{artistaController.prepareCreate}" value="#{bundle.ListArtistaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListArtistaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

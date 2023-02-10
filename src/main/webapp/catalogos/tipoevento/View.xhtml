@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTipoeventoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                   
+                    <h:outputText value="#{bundle.ViewTipoeventoLabel_nombre}"/>
+                    <h:outputText value="#{tipoeventoController.selected.nombre}" title="#{bundle.ViewTipoeventoTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewTipoeventoLabel_descripcion}"/>
+                    <h:outputText value="#{tipoeventoController.selected.descripcion}" title="#{bundle.ViewTipoeventoTitle_descripcion}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tipoeventoController.destroyAndView}" value="#{bundle.ViewTipoeventoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTipoeventoEditLink}"/>
+                <br />
+                <h:commandLink action="#{tipoeventoController.prepareCreate}" value="#{bundle.ViewTipoeventoCreateLink}" />
+                <br />
+                <h:commandLink action="#{tipoeventoController.prepareList}" value="#{bundle.ViewTipoeventoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTipoeventoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

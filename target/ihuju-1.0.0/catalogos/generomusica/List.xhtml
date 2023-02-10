@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGeneromusicaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListGeneromusicaEmpty}" rendered="#{generomusicaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{generomusicaController.items.rowCount > 0}">
+                    <h:outputText value="#{generomusicaController.pagination.pageFirstItem + 1}..#{generomusicaController.pagination.pageLastItem + 1}/#{generomusicaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{generomusicaController.previous}" value="#{bundle.Previous} #{generomusicaController.pagination.pageSize}" rendered="#{generomusicaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{generomusicaController.next}" value="#{bundle.Next} #{generomusicaController.pagination.pageSize}" rendered="#{generomusicaController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <p:dataTable value="#{generomusicaController.items}" var="item" >
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGeneromusicaTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGeneromusicaTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{generomusicaController.prepareView}" value="#{bundle.ListGeneromusicaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{generomusicaController.prepareEdit}" value="#{bundle.ListGeneromusicaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{generomusicaController.destroy}" value="#{bundle.ListGeneromusicaDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    
+                    
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{generomusicaController.prepareCreate}" value="#{bundle.ListGeneromusicaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListGeneromusicaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

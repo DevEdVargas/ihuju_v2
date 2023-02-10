@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditParticipaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="#{bundle.EditParticipaLabel_fkArtista}" for="fkArtista" />
+                    <p:selectOneMenu id="fkArtista" value="#{participaController.selected.fkArtista}" title="#{bundle.EditParticipaTitle_fkArtista}" required="true" requiredMessage="#{bundle.EditParticipaRequiredMessage_fkArtista}">
+                        <f:selectItems value="#{artistaController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditParticipaLabel_fkCronogra}" for="fkCronogra" />
+                    <p:selectOneMenu id="fkCronogra" value="#{participaController.selected.fkCronogra}" title="#{bundle.EditParticipaTitle_fkCronogra}" required="true" requiredMessage="#{bundle.EditParticipaRequiredMessage_fkCronogra}">
+                        <f:selectItems value="#{cronogramaController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditParticipaLabel_fkEvento}" for="fkEvento" />
+                    <p:selectOneMenu id="fkEvento" value="#{participaController.selected.fkEvento}" title="#{bundle.EditParticipaTitle_fkEvento}" required="true" requiredMessage="#{bundle.EditParticipaRequiredMessage_fkEvento}">
+                        <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{participaController.update}" value="#{bundle.EditParticipaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditParticipaViewLink}"/>
+                <br />
+                <h:commandLink action="#{participaController.prepareList}" value="#{bundle.EditParticipaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditParticipaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListParticipaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListParticipaEmpty}" rendered="#{participaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{participaController.items.rowCount > 0}">
+                    <h:outputText value="#{participaController.pagination.pageFirstItem + 1}..#{participaController.pagination.pageLastItem + 1}/#{participaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{participaController.previous}" value="#{bundle.Previous} #{participaController.pagination.pageSize}" rendered="#{participaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{participaController.next}" value="#{bundle.Next} #{participaController.pagination.pageSize}" rendered="#{participaController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <p:dataTable value="#{participaController.items}" var="item"
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500"
+                                 >
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParticipaTitle_fkArtista}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkArtista.apodo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParticipaTitle_fkCronogra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkCronogra.hora}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParticipaTitle_fkEvento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkEvento.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{participaController.prepareView}" value="#{bundle.ListParticipaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{participaController.prepareEdit}" value="#{bundle.ListParticipaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{participaController.destroy}" value="#{bundle.ListParticipaDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    
+                    
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{participaController.prepareCreate}" value="#{bundle.ListParticipaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListParticipaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

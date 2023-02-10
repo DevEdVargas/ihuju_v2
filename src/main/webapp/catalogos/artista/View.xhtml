@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArtistaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                   
+                    <h:outputText value="#{bundle.ViewArtistaLabel_apodo}"/>
+                    <h:outputText value="#{artistaController.selected.apodo}" title="#{bundle.ViewArtistaTitle_apodo}"/>
+                    <h:outputText value="#{bundle.ViewArtistaLabel_generomusical}"/>
+                    <h:outputText value="#{artistaController.selected.generomusical}" title="#{bundle.ViewArtistaTitle_generomusical}"/>
+                    <h:outputText value="#{bundle.ViewArtistaLabel_experiencia}"/>
+                    <h:outputText value="#{artistaController.selected.experiencia}" title="#{bundle.ViewArtistaTitle_experiencia}"/>
+                    <h:outputText value="#{bundle.ViewArtistaLabel_fkTipartis}"/>
+                    <h:outputText value="#{artistaController.selected.fkTipartis.nombre}" title="#{bundle.ViewArtistaTitle_fkTipartis}"/>
+                    <h:outputText value="#{bundle.ViewArtistaLabel_fkUsuario}"/>
+                    <h:outputText value="#{artistaController.selected.fkUsuario.nombreusuario}" title="#{bundle.ViewArtistaTitle_fkUsuario}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artistaController.destroyAndView}" value="#{bundle.ViewArtistaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewArtistaEditLink}"/>
+                <br />
+                <h:commandLink action="#{artistaController.prepareCreate}" value="#{bundle.ViewArtistaCreateLink}" />
+                <br />
+                <h:commandLink action="#{artistaController.prepareList}" value="#{bundle.ViewArtistaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewArtistaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

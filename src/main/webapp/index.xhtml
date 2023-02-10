@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/assets/Koala.png"/>
+        <script src="#{request.contextPath}/resources/js/jscript.js" type="text/javascript"></script>
+        <script src="#{request.contextPath}/resources/js/jscript.js" type="text/particles"></script>
+        <script src="#{request.contextPath}/resources/js/jscript.js" type="text/app"></script>
+        <title>#{bundle.ihuju}</title>
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="Pragma" content="no-cache" />
+    </h:head>
+
+    <h:body onload="invalidarBtnAtras();">
+        <div id="particles-js">
+        </div>
+        <script src="resources/js/particles.js" type="text/javascript"></script>
+        <script src="resources/js/app.js" type="text/javascript"></script>
+        <div id="top" class="left_content">
+            <ui:insert name="top">
+                <img
+                    src="#{request.contextPath}/resources/assets/Koala.png" alt=""/>
+            </ui:insert>
+            <div align="right">
+
+                <h:form >
+                    <p:panel style="border: none; background: none; text-align: right"> 
+                        <p:commandLink onclick="PF('dlgLogin').show()" title="Entrar">	
+                            <h:outputText value="INGRESAR AL SISTEMA"/>
+                        </p:commandLink>
+
+
+                    </p:panel>
+
+                </h:form>
+            </div>
+            <h:form >
+                <p:dialog id="dialog" header="Iniciar Sesi&oacute;n" widgetVar="dlgLogin" closable="false"
+                          width="300" resizable="false"
+
+                          hideEffect="explode">
+
+                    <p:growl id="growl" showDetail="true" life="3000"/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:column>
+                            <b><h:outputText value="Usuario"/></b>
+                        </p:column>
+                        <p:column>
+                            
+
+                            <p:inputText placeholder="Username" value="#{usuarioController.selected.nombreusuario}" required="true" requiredMessage="El campo Login es obligatorio"
+                                >
+                                <!--<f:validateRegex pattern="^[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ]{2,8}$"/>-->
+                            </p:inputText>
+
+
+                        </p:column>
+                        <p:column>
+                            <b><h:outputText
+                                    value="Contrase&ntilde;a"/></b>
+                        </p:column>
+                        <p:column>
+                            <h:inputSecret id="password" value="#{usuarioController.selected.contrasena}"
+                                           required="true"
+                                           requiredMessage="El Campo Contraseña es obligatorio"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="Entrar" image="ui-icon-key" update="growl"
+                                             action="#{usuarioController.autenticarUsuario()}"/>
+                            &nbsp;
+                            <p:commandButton value="Cancelar" image="ui-icon-circle-close"
+                                             onclick="dlgLogin.hide()"
+                                             immediate="true" />
+                        </f:facet>
+                    </h:panelGrid>	
+                </p:dialog>
+            </h:form>
+        </div>
+
+
+        <ui:insert name="content">
+
+        </ui:insert>
+        <p:separator></p:separator> 
+        <p:media value="https://www.youtube.com/embed/fFkG88yuUyA" width="420"
+                 height="315" player="flash"/>
+        <div class="contenedor">
+
+            <div class="cell-contenido">
+                <div class="mrapper">
+                    <div class="contenedor-video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/fFkG88yuUyA?start=10" 
+                                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture">    
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="cell-contenido">
+                <div class="mrapper membre">
+                    <h1>Membresía Gratis</h1>
+                    <p>Descubre lo que está pasando en la fiesta</p>
+                    <p>Conoce, Baila y Bebe Guaro!!!</p>
+                    <p>Pasémosla bien rico</p>
+                    <p>¡¡Que yo me voy pal partí!!</p>
+                    <div class="contenedor-boton">
+                        <div class="boton">
+                            <a href="#{request.contextPath}/faces/Registro.xhtml">REGISTRO</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <div align="center">
+                    <img
+                        src="#{request.contextPath}resources/assets/iconfinder_aiga_bar_134140.png" width="24" height="20" alt="ihuju"/>
+                    Todos los derechos reservados - ihuju
+                    <img
+                        src="#{request.contextPath}resources/assets/iconfinder_aiga_bar_134140.png" width="24" height="20" alt="Koala"/>                    
+                </div>
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+

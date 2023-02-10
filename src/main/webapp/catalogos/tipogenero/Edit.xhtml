@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTipogeneroTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="#{bundle.EditTipogeneroLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{tipogeneroController.selected.nombre}" title="#{bundle.EditTipogeneroTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipogeneroRequiredMessage_nombre}"/>
+                    <p:outputLabel value="#{bundle.EditTipogeneroLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{tipogeneroController.selected.descripcion}" title="#{bundle.EditTipogeneroTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipogeneroRequiredMessage_descripcion}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{tipogeneroController.update}" value="#{bundle.EditTipogeneroSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTipogeneroViewLink}"/>
+                <br />
+                <h:commandLink action="#{tipogeneroController.prepareList}" value="#{bundle.EditTipogeneroShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTipogeneroIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

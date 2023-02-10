@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAccionpermitidaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="#{bundle.CreateAccionpermitidaLabel_codigo}" for="codigo" />
+                    <h:inputText id="codigo" value="#{accionpermitidaController.selected.codigo}" title="#{bundle.CreateAccionpermitidaTitle_codigo}" required="true" requiredMessage="#{bundle.CreateAccionpermitidaRequiredMessage_codigo}"/>
+                    <p:outputLabel value="#{bundle.CreateAccionpermitidaLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{accionpermitidaController.selected.descripcion}" title="#{bundle.CreateAccionpermitidaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAccionpermitidaRequiredMessage_descripcion}"/>
+                    <p:outputLabel value="#{bundle.CreateAccionpermitidaLabel_ruta}" for="ruta" />
+                    <h:inputText id="ruta" value="#{accionpermitidaController.selected.ruta}" title="#{bundle.CreateAccionpermitidaTitle_ruta}" required="true" requiredMessage="#{bundle.CreateAccionpermitidaRequiredMessage_ruta}"/>
+                    <p:outputLabel value="#{bundle.CreateAccionpermitidaLabel_fkAccipermitida}" for="fkAccipermitida" />
+                    <p:selectOneMenu id="fkAccipermitida" value="#{accionpermitidaController.selected.fkAccipermitida}" title="#{bundle.CreateAccionpermitidaTitle_fkAccipermitida}" >
+                        <f:selectItems value="#{accionpermitidaController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{accionpermitidaController.create}" value="#{bundle.CreateAccionpermitidaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{accionpermitidaController.prepareList}" value="#{bundle.CreateAccionpermitidaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAccionpermitidaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

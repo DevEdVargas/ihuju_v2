@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTipoeventoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTipoeventoEmpty}" rendered="#{tipoeventoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tipoeventoController.items.rowCount > 0}">
+                    <h:outputText value="#{tipoeventoController.pagination.pageFirstItem + 1}..#{tipoeventoController.pagination.pageLastItem + 1}/#{tipoeventoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tipoeventoController.previous}" value="#{bundle.Previous} #{tipoeventoController.pagination.pageSize}" rendered="#{tipoeventoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tipoeventoController.next}" value="#{bundle.Next} #{tipoeventoController.pagination.pageSize}" rendered="#{tipoeventoController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <p:dataTable value="#{tipoeventoController.items}" var="item" 
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500"
+                                 >
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoeventoTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoeventoTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tipoeventoController.prepareView}" value="#{bundle.ListTipoeventoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoeventoController.prepareEdit}" value="#{bundle.ListTipoeventoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoeventoController.destroy}" value="#{bundle.ListTipoeventoDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tipoeventoController.prepareCreate}" value="#{bundle.ListTipoeventoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTipoeventoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

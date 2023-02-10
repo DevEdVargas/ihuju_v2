@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/catalogos/templateAdmin.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green"
+                                layout="table"/>
+                </h:panelGroup>
+                <br/>
+
+                <p:dataTable id="tblPersons" value="#{personaController.items}"
+                             var="item"
+                             paginator="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks}
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown} 
+                             {Exporters}"
+                             rowsPerPageTemplate="5,10,15,20,50,100,500"
+                             rowStyleClass="#{item.fkTipoidentificacion.codigo eq 'CC' ? 'cc' : null}">
+
+                    <f:facet name="{Exporters}">
+                        <div style="float: bottom; padding-top: 5px;">
+                            <h:commandLink>
+                                <p:graphicImage name="/assets/xls.png" width="24"/>
+                                <p:dataExporter type="xls" target="tblPersons"
+                                                pageOnly="true" fileName="usuarios" />
+                            </h:commandLink>	  
+
+                            <h:commandLink>
+                                <p:graphicImage name="/assets/pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target="tblPersons"
+                                                pageOnly="true" fileName="usuarios" />
+                            </h:commandLink>	  
+
+                            <h:commandLink>
+                                <p:graphicImage name="/assets/csv.png" width="24"/>
+                                <p:dataExporter type="csv" target="tblPersons"
+                                                pageOnly="true" fileName="usuarios" />
+                            </h:commandLink>	  
+
+                            <h:commandLink>
+                                <p:graphicImage name="/resources/assets/xml.png" width="24"/>
+                                <p:dataExporter type="xml" target="tblPersons"
+                                                pageOnly="true" fileName="usuarios" />
+                            </h:commandLink>	
+
+                        </div>
+                    </f:facet>
+
+                    <p:column
+                        headerText="#{bundle.ListPersonaTitle_fkTipoidentifi}">
+                        <h:outputText
+                            value="#{item.fkTipoidentificacion.descripcion}"/>		  
+                    </p:column>	
+
+                    <p:column
+                        headerText="#{bundle.ListPersonaTitle_identificacion}"
+                        sortBy="#{item.identificacion}"
+                        filterMaxLength="5" filterMatchMode="constains"
+                        filterBy="#{item.identificacion}">
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+                    <p:column headerText="#{bundle.ListPersonaTitle_nombre}"
+                              sortBy="#{item.nombres}">
+                        <h:outputText value="#{item.nombres}"/>
+                    </p:column>
+
+                    <p:column headerText="#{bundle.ListPersonaTitle_apellidos}"
+                              filterBy="#{item.apellidos}" filterMatchMode="exact">
+                        <h:outputText value="#{item.apellidos}"/>
+                    </p:column>
+
+                    <p:column headerText="#{bundle.ListPersonaTitle_correo}">
+                        <h:outputText value="#{item.correo}"/>
+                    </p:column>
+
+                    <p:column headerText="#{bundle.ListPersonaTitle_fkMunicipioorigen}">
+                        <h:outputText value="#{item.fkMunicipioorigen.nombre} - 
+                                      #{item.fkMunicipioorigen.fkDepartamento.nombre}"/>
+                    </p:column>
+                    <p:column exportable="false">
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{personaController.prepareView}"
+                                           value="#{bundle.ListPersonaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{personaController.prepareEdit}"
+                                           value="#{bundle.ListPersonaEditLink}"/>
+                    </p:column>
+                </p:dataTable>
+
+                <h3>Exportar</h3>
+                <h:commandLink>
+                    <p:graphicImage name="/assets/xls.png" />
+                    <p:dataExporter type="xls" target="tblPersons"
+                                    fileName="personas"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="/assets/pdf.png" />
+                    <p:dataExporter type="pdf" target="tblPersons"
+                                    fileName="personas"/>
+                </h:commandLink>	
+
+                <h:commandLink>
+                    <p:graphicImage name="/assets/csv.png" />
+                    <p:dataExporter type="csv" target="tblPersons"
+                                    fileName="personas"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="/assets/xml.png" />
+                    <p:dataExporter type="xml" target="tblPersons"
+                                    fileName="personas"/>
+                </h:commandLink>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

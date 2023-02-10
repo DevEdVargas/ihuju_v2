@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEventoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListEventoEmpty}" rendered="#{eventoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{eventoController.items.rowCount > 0}">
+                    <h:outputText value="#{eventoController.pagination.pageFirstItem + 1}..#{eventoController.pagination.pageLastItem + 1}/#{eventoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{eventoController.previous}" value="#{bundle.Previous} #{eventoController.pagination.pageSize}" rendered="#{eventoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{eventoController.next}" value="#{bundle.Next} #{eventoController.pagination.pageSize}" rendered="#{eventoController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <p:dataTable id="tblevento" value="#{eventoController.items}" var="item" style="border:solid 1px"
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500">
+                       <f:facet name="{Exporters}">
+                            <div style="float: bottom; padding-top: 5px;">
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xls.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tblevento"
+                                                    pageOnly="true" fileName="evento" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tblevento"
+                                                    pageOnly="true" fileName="evento"  preProcessor="#{eventoController.preProcessPDF}" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="tblevento"
+                                                    pageOnly="true" fileName="evento" />
+                                </h:commandLink>	  
+
+                                <h:commandLink>
+                                    <p:graphicImage name="/assets/xml.png" width="24"/>
+                                    <p:dataExporter type="xml" target="tblevento"
+                                                    pageOnly="true" fileName="evento" />
+                                </h:commandLink>	
+
+                            </div>
+                        </f:facet>
+
+                        <p:column
+                            headerText="#{bundle.ListEventoTitle_fecha}"
+                            sortBy="#{item.fecha}"
+                            filterBy="#{item.fecha}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListEventoTitle_descripcion}"
+                            sortBy="#{item.descripcion}"
+                            filterBy="#{item.descripcion}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+			<p:column
+                            headerText="#{bundle.ListEventoTitle_capacidad}"
+                            sortBy="#{item.capacidad}"
+                            filterBy="#{item.capacidad}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.capacidad}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListEventoTitle_precio}"
+                            sortBy="#{item.precio}"
+                            filterBy="#{item.precio}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.precio}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListEventoTitle_fkEstablec}"
+                            sortBy="#{item.fkEstablec.nombre}"
+                            filterBy="#{item.fkEstablec.nombre}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkEstablec.nombre}"/>
+                        </p:column>
+                        <p:column
+                            headerText="#{bundle.ListEventoTitle_fkTipoevento}"
+                            sortBy="#{item.fkTipoevento.nombre}"
+                            filterBy="#{item.fkTipoevento.nombre}" filterMatchMode="contains"> 
+                            <h:outputText value="#{item.fkTipoevento.nombre}"/>
+                        </p:column>
+                        <p:column exportable="false">
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{eventoController.prepareView}" value="#{bundle.ListEventoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{eventoController.prepareEdit}" value="#{bundle.ListEventoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{eventoController.destroy}" value="#{bundle.ListEventoDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h3>Exportar</h3>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xls.png" />
+                        <p:dataExporter type="xls" target="tblevento"
+                                        fileName="evento"/>
+                    </h:commandLink>
+                    <h:commandLink>
+                        <p:graphicImage name="/assets/pdf.png" />
+                        <p:dataExporter type="pdf" target="tblevento"
+                                        fileName="evento" preProcessor="#{eventoController.preProcessPDF}" />
+                    </h:commandLink>	
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/csv.png" />
+                        <p:dataExporter type="csv" target="tblevento"
+                                        fileName="evento"/>
+                    </h:commandLink>
+                    <h:commandLink disabled="true">
+                        <p:graphicImage name="/assets/xml.png" />
+                        <p:dataExporter type="xml" target="tblevento"
+                                        fileName="evento"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{eventoController.prepareCreate}" value="#{bundle.ListEventoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListEventoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

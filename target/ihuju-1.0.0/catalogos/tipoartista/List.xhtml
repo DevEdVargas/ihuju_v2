@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTipoartistaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTipoartistaEmpty}" rendered="#{tipoartistaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tipoartistaController.items.rowCount > 0}">
+                    <h:outputText value="#{tipoartistaController.pagination.pageFirstItem + 1}..#{tipoartistaController.pagination.pageLastItem + 1}/#{tipoartistaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tipoartistaController.previous}" value="#{bundle.Previous} #{tipoartistaController.pagination.pageSize}" rendered="#{tipoartistaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tipoartistaController.next}" value="#{bundle.Next} #{tipoartistaController.pagination.pageSize}" rendered="#{tipoartistaController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <p:dataTable value="#{tipoartistaController.items}" var="item" 
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} 
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                 {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,50,100,500"
+                                 >
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoartistaTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoartistaTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tipoartistaController.prepareView}" value="#{bundle.ListTipoartistaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoartistaController.prepareEdit}" value="#{bundle.ListTipoartistaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoartistaController.destroy}" value="#{bundle.ListTipoartistaDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tipoartistaController.prepareCreate}" value="#{bundle.ListTipoartistaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTipoartistaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

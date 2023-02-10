@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            
+            <h:form>
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_nit}" for="nit" />
+                    <h:inputText id="nit" value="#{registroDuenoController.selectedEstablecimiento.nit}" title="#{bundle.CreateEstablecimientoTitle_nit}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_nit}" style="width: 150px"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{registroDuenoController.selectedEstablecimiento.nombre}" title="#{bundle.CreateEstablecimientoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_nombre}" style="width: 150px"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_direccion}" for="direccion" />
+                    <h:inputText id="direccion" value="#{registroDuenoController.selectedEstablecimiento.direccion}" title="#{bundle.CreateEstablecimientoTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_direccion}" style="width: 150px"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_capacidad}" for="capacidad" />
+                    <h:inputText id="capacidad" value="#{registroDuenoController.selectedEstablecimiento.capacidad}" title="#{bundle.CreateEstablecimientoTitle_capacidad}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_capacidad}" style="width: 150px"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="#{bundle.CreateEstablecimientoLabel_precio}" for="precio" />
+                    <h:inputText id="precio" value="#{registroDuenoController.selectedEstablecimiento.precio}" title="#{bundle.CreateEstablecimientoTitle_precio}" required="true" requiredMessage="#{bundle.CreateEstablecimientoRequiredMessage_precio}" style="width: 150px"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="Pais:" for="pais"/>
+                    <p:selectOneMenu id="pais"
+                                     value="#{registroController.pais}" style="width:  150px">
+                        <p:ajax 
+                            listener="#{ubicacionGeograficaController.onPaisChange(registroController.pais)}" update="depto" />
+                        <f:selectItem itemLabel="Seleccionar ..."
+                                      itemValue="" noSelectionOption="true"/>
+                        <f:selectItems
+                            value="#{ubicacionGeograficaController.paises}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="Departamento:" for ="depto"/>
+                    <p:selectOneMenu id="depto"
+                                     value="#{registroController.departamento}" style="width:  150px">
+                        <p:ajax 
+                            listener="#{ubicacionGeograficaController.onDepartamentChange(registroController.departamento)}" update="municipio" />
+                        <f:selectItem itemLabel="Seleccionar ..."
+                                      itemValue="" noSelectionOption="true"/>
+                        <f:selectItems
+                            value="#{ubicacionGeograficaController.departamentos}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel> 
+
+                    <p:outputLabel for="municipio"
+                                   value="#{bundle.CreatePersonaLabel_fkMunicipio}" />
+
+                    <p:selectOneMenu id="municipio" 
+                                     value="#{registroController.selectedPersona.fkMunicipio}" required="true" 
+                                     requiredMessage="#{bundle.CreatePersonaRequiredMessage_fkMunicipio}"
+                                     style="width: 150px">
+                        <f:selectItem itemLabel="Seleccionar ..."
+                                      itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{ubicacionGeograficaController.municipios}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="#{bundle.CreateEstatipgenLabel_fkTipogenero}" for="fkTipogenero" />
+                    <p:selectOneMenu id="fkTipogenero" value="#{registroDuenoController.selectedEstatipgen.fkTipogenero}" title="#{bundle.CreateEstatipgenTitle_fkTipogenero}" required="true" requiredMessage="#{bundle.CreateEstatipgenRequiredMessage_fkTipogenero}" style="width: 150px">
+                        <f:selectItems value="#{tipogeneroController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                    
+                    <p:outputLabel value="#{bundle.CreateEstagenmusiLabel_fkGeneromusica}" for="fkGeneromusica" />
+                    <p:selectOneMenu id="fkGeneromusica" value="#{registroDuenoController.selectedEstagenmusi.fkGeneromusica}" title="#{bundle.CreateEstagenmusiTitle_fkGeneromusica}" required="true" requiredMessage="#{bundle.CreateEstagenmusiRequiredMessage_fkGeneromusica}" style="width: 150px">
+                        <f:selectItems value="#{generomusicaController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+                  
+                    
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{registroDuenoController.create}" value="#{bundle.CreateEstablecimientoSaveLink}" />
+                <br />
+               
+              
+               
+            </h:form>   
+
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

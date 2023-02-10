@@ -1,0 +1,154 @@
+#top {
+    position: relative;
+    background-color: #00377B;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+#bottom {
+    position: relative;
+    background-color: #00377B;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+.center_content {
+    position: relative;
+    background-color: #dddddd;
+    padding: 5px;
+}
+.left_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin-left: 170px;
+}
+.right_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+#top a:link, #top a:visited {
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
+}
+#top a:link:hover, #top a:visited:hover {
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+body{
+    /*margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;*/
+    background-image:url("../resources/img/disco.jpeg") ;
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+#particles-js{
+    /*width: 100%;
+    position: fixed;
+    z-index: -1;*/
+    
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -1;
+
+}
+
+.contenedor{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 150px;
+  }
+
+  .cell-contenido{
+      width: 50%;
+      margin-top: 5%;
+      display: flex;
+      
+      justify-content: center;
+ 
+  }
+  .mrapper {
+     
+    flex-basis: 85%;
+      
+  }
+  .contenedor-video{
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0px;
+  }
+  .contenedor-video iframe{
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      height: 100%;
+      width: 100%;
+        
+    }
+    .membre{
+        border: solid 1px #FFF;
+        padding: 5%;
+        box-sizing: border-box;
+        background-color: rgb(0,0,0,0.8);
+        color: white;
+        
+    }
+    .membre p{
+        /*font-family: 'Permanent Marker', cursive;*/
+        font-family: 'EB Garamond', serif;
+    } 
+    .membre h1{
+        text-align: center;
+        margin: 15px;
+    }
+    
+    .boton{
+        
+        display: flex;
+        float: right;
+        background-color: #00377B;
+        
+        width: 200px;
+        height: 80px;
+        
+        font-weight: 700;
+        font-size: 1.1rem;
+        border-radius: .5rem;
+        
+        
+        
+      }
+      .boton a{
+        margin: auto;
+        width: 80%;
+        text-align: center;
+        
+        text-decoration: none;
+        color: white;
+      }

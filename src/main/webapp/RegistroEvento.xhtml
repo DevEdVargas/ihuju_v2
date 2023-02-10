@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+            <h:form>
+                <h:panelGrid columns="3">
+
+                    <p:outputLabel 
+                        value="#{bundle.CreateEventoLabel_fecha}"
+                        for="fecha" />
+
+                    <p:calendar id="fecha"
+                                mindate="#{eventoController.minDate}"
+                                value="#{eventoController.selected.fecha}" 
+                                locale="es" navigator ="true" pattern="dd/MM/yyyy"
+                                />
+
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                    <p:outputLabel value="#{bundle.CreateEventoLabel_descripcion}" for="descripcion" />
+                    <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{eventoController.selected.descripcion}" title="#{bundle.CreateEventoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_descripcion}"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                    <p:outputLabel value="#{bundle.CreateEventoLabel_capacidad}" for="capacidad" />
+                    <h:inputText id="capacidad" value="#{eventoController.selected.capacidad}" title="#{bundle.CreateEventoTitle_capacidad}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_capacidad}"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                    <p:outputLabel value="#{bundle.CreateEventoLabel_precio}" for="precio" />
+                    <h:inputText id="precio" value="#{eventoController.selected.precio}" title="#{bundle.CreateEventoTitle_precio}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_precio}"/>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                    <p:outputLabel value="#{bundle.CreateEventoLabel_fkEstablec}" for="fkEstablec" />
+                    <p:selectOneMenu id="fkEstablec" value="#{eventoController.selected.fkEstablec}" title="#{bundle.CreateEventoTitle_fkEstablec}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_fkEstablec}">
+                        <f:selectItems value="#{establecimientoController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                    <p:outputLabel value="#{bundle.CreateEventoLabel_fkTipoevento}" for="fkTipoevento" />
+                    <p:selectOneMenu id="fkTipoevento" value="#{eventoController.selected.fkTipoevento}" title="#{bundle.CreateEventoTitle_fkTipoevento}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_fkTipoevento}">
+                        <f:selectItems value="#{tipoeventoController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="*" class="asterisco"> </p:outputLabel>
+
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{registroDuenoController.create}" value="#{bundle.CreateEstablecimientoSaveLink}" />
+                <br />
+            </h:form>   
+        </ui:define>
+    </ui:composition>
+
+</html>

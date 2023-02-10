@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            Hola, estoy en otro formulario, un formulario solo de Admin
+            <h:form>
+               
+                <p:growl id="messages" showDetail="true" />
+            </h:form>
+            <p:separator></p:separator> 
+            <p:media value="https://www.youtube.com/v/d27gTrPPAyk" width="420"
+                     height="315" player="flash"/>
+            <h3>PDF</h3><object type="application/pdf" 
+                      data="#{request.contextPath}/resources/assets/prueba.pdf?pfdrid_c=true" 
+                      width="100%" height="300px">
+                Your browser can't display pdf, <a
+                 href="#{request.contextPath}/resources/assets/prueba.pdf">click</a>  
+                to download pdf instead.
+            </object>
+            
+            <p:separator></p:separator>  
+
+            <p:separator></p:separator> 
+            <br />
+            <h:link outcome="/catalogos/cliente/List" value="Show All Cliente Items"/>
+            <br />
+            
+            <br />
+            <h:link outcome="/catalogos/accionpermitida/List" value="accion permitida"/>
+            <br />
+            <h:link outcome="/catalogos/accperplan/List" value="Accperplan"/>
+            <br />
+            <h:link outcome="/catalogos/accperusu/List" value="Accperusu"/>
+            <br />
+            <h:link outcome="/catalogos/artista/List" value="Artista"/>
+            <br />
+            <h:link outcome="/catalogos/asiste/List" value="Asiste"/>
+            <br />
+            <h:link outcome="/catalogos/cronograma/List" value="Cronograma"/>
+            <br />
+            <h:link outcome="/catalogos/departamento/List" value="Departamento"/>
+            <br />
+            <h:link outcome="/catalogos/disponibilidad/List" value="Disponibilidad"/>
+            <br />
+            <h:link outcome="/catalogos/duenio/List" value="Duenio"/>
+            <br />
+            <h:link outcome="/catalogos/establecimiento/List" value="Establecimiento"/>
+            <br />
+            <h:link outcome="/catalogos/estadispo/List" value="Estadispo"/>
+            <br />
+            <h:link outcome="/catalogos/estado/List" value="Estado"/>
+            <br />
+            <h:link outcome="/catalogos/estadocivil/List" value="Estadocivil"/>
+            <br />
+            <h:link outcome="/catalogos/estadousuario/List" value="Estadousuario"/>
+            <br />
+            <h:link outcome="/catalogos/estagenmusi/List" value="Estagenmusi"/>
+            <br />
+            <h:link outcome="/catalogos/estatipgen/List" value="Estatipgen"/>
+            <br />
+            <h:link outcome="/catalogos/evento/List" value="Evento"/>
+            <br />
+            <h:link outcome="/catalogos/genero/List" value="Genero"/>
+            <br />
+            <h:link outcome="/catalogos/generomusica/List" value="Generomusica"/>
+            <br />
+            <h:link outcome="/catalogos/municipio/List" value="Municipio"/>
+            <br />
+            <h:link outcome="/catalogos/pais/List" value="Pais"/>
+            <br />
+            <h:link outcome="/catalogos/participa/List" value="Participa"/>
+            <br />
+            <h:link outcome="/catalogos/persona/List" value="Persona"/>
+            <br />
+            <h:link outcome="/catalogos/plantilla/List" value="Plantilla"/>
+            <br />
+            <h:link outcome="/catalogos/reserva/List" value="Reserva"/>
+            <br />
+            <h:link outcome="/catalogos/telefono/List" value="Telefono"/>
+            <br />
+            <h:link outcome="/catalogos/tipoartista/List" value="Tipoartista"/>
+            <br />
+            <h:link outcome="/catalogos/tipoevento/List" value="Tipoevento"/>
+            <br />
+            <h:link outcome="/catalogos/tipogenero/List" value="Tipogenero"/>
+            <br />
+            <h:link outcome="/catalogos/tipoidentificacion/List" value="Tipoidentificacion"/>
+            <br />
+            <h:link outcome="/catalogos/tipotelefono/List" value="Tipotelefono"/>
+            <br />
+            <h:link outcome="/catalogos/usuario/List" value="Usuario"/>
+
+            
+            
+            
+        </ui:define>
+    </ui:composition>
+</html> 
+
+
+
